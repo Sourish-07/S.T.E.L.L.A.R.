@@ -55,18 +55,23 @@ This project predicts stock market movement by combining machine learning models
 
 ---
 Acknowledgements
-Shrish Mudumby Venugopal - Post Inspirit project development
-Inspirit AI — Research mentorship and guidance.
-  Tommy Pawelski - Research mentor
-Hanna Yukhymenko — Original dataset creator.
+-Shrish Mudumby Venugopal - Post Inspirit project development
+
+-Inspirit AI — Research mentorship and guidance.
+  *Tommy Pawelski - Research mentor
+
+-Hanna Yukhymenko — Original dataset creator.
 
 ## How to Run Locally
 1. Clone this repository:
    ```bash
    git clone https://github.com/your-username/your-repo.git
 2. Navigate to the project folder:
+   ```bash
    cd your-repo
 3. Install dependencies:
+   ```bash
    pip install -r requirements.txt
 4. Run the Streamlit app:
+   ```bash
    streamlit run app.py
