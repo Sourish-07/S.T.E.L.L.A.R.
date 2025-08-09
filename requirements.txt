@@ -63,7 +63,7 @@ pydantic_core==2.33.2
 pydeck==0.9.1
 pyee==13.0.0
 pyparsing==3.2.3
-pyppeteer==1.0.0
+pyppeteer==0.0.25
 pyquery==2.0.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
