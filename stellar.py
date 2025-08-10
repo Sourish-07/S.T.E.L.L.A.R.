@@ -10,7 +10,15 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 import datetime as dt
 import pytz
+import subprocess
+import sys
 
+try:
+    from transformers import AutoTokenizer
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "transformers==4.53.0"])
+    from transformers import AutoTokenizer
+    
 # === Load model and vectorizer ===
 with open("clean_stock_bot.pkl", "rb") as f:
     model = cloudpickle.load(f)
@@ -299,3 +307,4 @@ with tabs[1]:
         st.caption("Prediction made using **historical tweet sentiment and stock model**.")
     else:
         st.info("No tweet data available for this date.")
+
