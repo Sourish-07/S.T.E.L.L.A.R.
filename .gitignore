@@ -9,3 +9,7 @@ __pycache__/
 
 # Ignore system files
 .DS_Store
+
+# Remove devcontainer folder
+.devcontainer/
+
