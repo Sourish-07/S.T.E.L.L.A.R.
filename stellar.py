@@ -10,21 +10,32 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 import datetime as dt
 import pytz
-import subprocess
-import sys
 
-try:
-    from transformers import AutoTokenizer
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "transformers==4.53.0"])
-    from transformers import AutoTokenizer
+
+def load_data():
+    # Load and preprocess tweet + price CSVs
+    tweets_df = pd.read_csv('stock_tweets.csv')
+    prices_df = pd.read_csv('stock_yfinance_data.csv')
+
+    # Clean tweet data
+    tweets_df_clean = tweets_df.drop_duplicates(subset=["Tweet", "Stock Name", "Date"])
+    tweets_df_clean["Date"] = tweets_df_clean["Date"].str.split().str[0]
+
+    # Merge full dataset
+    full_data = tweets_df_clean.merge(prices_df, on=["Date", "Stock Name"])
+    full_data['% change in stock price'] = (full_data['Close'] - full_data['Open']) / full_data['Open']
+    full_data['overall change'] = (full_data['% change in stock price'] > 0).astype(int)
     
+    return full_data
 # === Load model and vectorizer ===
-with open("clean_stock_bot.pkl", "rb") as f:
-    model = cloudpickle.load(f)
+def load_model_and_vectorizer():
+    
+    with open("clean_stock_bot.pkl", "rb") as f:
+        model = cloudpickle.load(f)
 
-with open("clean_vectorizer.pkl", "rb") as f:
-    vectorizer = cloudpickle.load(f)
+    with open("clean_vectorizer.pkl", "rb") as f:
+        vectorizer = cloudpickle.load(f)
+    return model, vectorizer
 
 # === Load and preprocess tweet + price CSVs ===
 tweets_df = pd.read_csv('stock_tweets.csv')
@@ -307,4 +318,5 @@ with tabs[1]:
         st.caption("Prediction made using **historical tweet sentiment and stock model**.")
     else:
         st.info("No tweet data available for this date.")
+
 
