@@ -11,31 +11,12 @@ import torch
 import datetime as dt
 import pytz
 
-
-def load_data():
-    # Load and preprocess tweet + price CSVs
-    tweets_df = pd.read_csv('stock_tweets.csv')
-    prices_df = pd.read_csv('stock_yfinance_data.csv')
-
-    # Clean tweet data
-    tweets_df_clean = tweets_df.drop_duplicates(subset=["Tweet", "Stock Name", "Date"])
-    tweets_df_clean["Date"] = tweets_df_clean["Date"].str.split().str[0]
-
-    # Merge full dataset
-    full_data = tweets_df_clean.merge(prices_df, on=["Date", "Stock Name"])
-    full_data['% change in stock price'] = (full_data['Close'] - full_data['Open']) / full_data['Open']
-    full_data['overall change'] = (full_data['% change in stock price'] > 0).astype(int)
-    
-    return full_data
 # === Load model and vectorizer ===
-def load_model_and_vectorizer():
-    
-    with open("clean_stock_bot.pkl", "rb") as f:
-        model = cloudpickle.load(f)
+with open("clean_stock_bot.pkl", "rb") as f:
+    model = cloudpickle.load(f)
 
-    with open("clean_vectorizer.pkl", "rb") as f:
-        vectorizer = cloudpickle.load(f)
-    return model, vectorizer
+with open("clean_vectorizer.pkl", "rb") as f:
+    vectorizer = cloudpickle.load(f)
 
 # === Load and preprocess tweet + price CSVs ===
 tweets_df = pd.read_csv('stock_tweets.csv')
@@ -67,7 +48,7 @@ def get_yahoo_headlines(ticker):
         return []
 
 
-# === Tab 1: Show merged dataset ===
+# === Tab 1: Project Information ===
 with tabs[0]:
     st.subheader("About This Project")
     st.markdown("""
@@ -318,5 +299,3 @@ with tabs[1]:
         st.caption("Prediction made using **historical tweet sentiment and stock model**.")
     else:
         st.info("No tweet data available for this date.")
-
-
