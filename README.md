@@ -1,3 +1,10 @@
+---
+sdk: docker
+app_file: stellar.py
+python_version: 3.13
+---
+
+
 # S.T.E.L.L.A.R.
 Stock market prediction app using Random Forest models, Twitter sentiment analysis, and real-time stock data scraping.
 
