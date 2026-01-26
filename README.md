@@ -17,6 +17,15 @@ cross-validation frameworks.
   - Transaction costs
   - Turnover and drawdowns
 
+## Paper
+
+The accompanying research paper is publicly available as a preprint on SSRN:
+
+> **An Empirical Evaluation of Cross-Sectional Equity Signals Under Backtest Overfitting Diagnostics**  
+> SSRN Preprint (DOI): https://dx.doi.org/10.2139/ssrn.6078546
+
+Please cite the SSRN version if referencing this work.
+
 ## Repository Structure
 ```
 src/ Core modeling, backtesting, and validation code
